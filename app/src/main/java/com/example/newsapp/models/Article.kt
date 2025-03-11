@@ -1,7 +1,9 @@
 package com.example.newsapp.models
 
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "article_table")
 data class Article(
     @SerializedName("author")val author: String,
     @SerializedName("content")val content: String,
