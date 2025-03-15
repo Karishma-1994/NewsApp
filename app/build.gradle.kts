@@ -56,7 +56,7 @@ dependencies {
     implementation(libs.androidx.recyclerview)
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson.converter)
+    implementation(libs.http.logging.interceptor)
     implementation(libs.picasso)
     implementation(libs.location)
-
 }
