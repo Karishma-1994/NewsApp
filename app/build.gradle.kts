@@ -29,6 +29,7 @@ android {
     }
     buildFeatures{
         viewBinding=true
+        dataBinding=true
 
     }
     compileOptions {
@@ -49,6 +50,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.databinding.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

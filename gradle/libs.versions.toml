@@ -1,16 +1,18 @@
 [versions]
 agp = "8.6.1"
-kotlin = "1.9.0"
+kotlin = "1.9.22"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
-activity = "1.10.0"
-constraintlayout = "2.2.0"
-navigationFragmentKtx = "2.8.7"
-navigationUiKtx = "2.8.7"
+activity = "1.10.1"
+constraintlayout = "2.2.1"
+navigationFragmentKtx = "2.8.9"
+navigationUiKtx = "2.8.9"
+navigationDynamicFeaturesFragment = "2.8.9"
+navigationFragment = "1.0.0"
 recyclerview = "1.4.0"
 retrofit = "2.9.0"
 okhttp = "4.10.0"
@@ -18,6 +20,7 @@ picasso = "2.71828"
 location = "21.3.0"
 roomCommon = "2.6.1"
 roomKtx = "2.6.1"
+databindingRuntime = "8.9.1"
 
 
 
@@ -32,6 +35,8 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+androidx-navigation-dynamic-features-fragment = { group = "androidx.navigation", name = "navigation-dynamic-features-fragment", version.ref = "navigationDynamicFeaturesFragment" }
+navigation-fragment = { group = "android.arch.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-gson-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
@@ -40,6 +45,7 @@ picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "pic
 location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "location" }
 androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
+androidx-databinding-runtime = { group = "androidx.databinding", name = "databinding-runtime", version.ref = "databindingRuntime" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
