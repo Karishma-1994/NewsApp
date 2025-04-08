@@ -11,5 +11,4 @@
     <string name="description">DESCRIPTION</string>
     <string name="date_time">DATE TIME</string>
     <string name="source">SOURCE</string>
-    <string name="news_image_url">https://https://newsapi.org/img/w/%1$s.png</string>
 </resources>

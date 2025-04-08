@@ -8,7 +8,7 @@ fun ImageView.loadNewsIcon(newsIcon: String) {
     try {
         //Did to prevent crash when picasso is mocked then load function is not present
         Picasso.get()
-            .load(context.getString(R.string.news_image_url, newsIcon))
+            .load(newsIcon)
             .into(this)
     } catch (e: NullPointerException) {
         e.printStackTrace()
