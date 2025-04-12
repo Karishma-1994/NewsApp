@@ -55,19 +55,33 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
             it?.let { viewResource ->
                 when (viewResource) {
                     is ViewResource.Success -> {
-                        println("KarishmaTest success ${it.data}")
                         adapter.setNewsResponse(it.data!!.articles)
+                        binding.itemHeadlinesError.root.visibility = View.GONE
+                        binding.mainLayout.visibility = View.VISIBLE
+                        binding.paginationProgressBar.visibility = View.GONE
                     }
 
                     is ViewResource.Error -> {
-                        println("KarishmaTest error ${it.message}")
+                        binding.itemHeadlinesError.root.visibility = View.VISIBLE
+                        binding.mainLayout.visibility = View.GONE
+                        binding.paginationProgressBar.visibility = View.GONE
                     }
                     is ViewResource.Loading -> {
-                        println("KarishmaTest loading")
+                        binding.itemHeadlinesError.root.visibility = View.GONE
+                        binding.mainLayout.visibility = View.GONE
+                        binding.paginationProgressBar.visibility = View.VISIBLE
+
+
                     }
                 }
             }
         }
+        binding.itemHeadlinesError.retryButton.setOnClickListener {
+            viewModel.retry()
+        }
+
+
+
 
         return binding.root
     }

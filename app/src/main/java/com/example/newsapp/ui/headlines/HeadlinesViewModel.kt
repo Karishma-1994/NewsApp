@@ -62,4 +62,9 @@ class HeadlinesViewModel(private val newsRepository: NewsRepository) : ViewModel
         }
         return ViewResource.Error(response.message())
     }
+
+    fun retry(){
+        fetchHeadlines("US")
+
+    }
 }
