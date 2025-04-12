@@ -11,4 +11,6 @@
     <string name="description">DESCRIPTION</string>
     <string name="date_time">DATE TIME</string>
     <string name="source">SOURCE</string>
+    <string name="retry">Retry</string>
+    <string name="please_check_your_internet_connection_and_try_again">Please check your internet connection and try again</string>
 </resources>

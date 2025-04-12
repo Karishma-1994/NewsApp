@@ -3,11 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="favouritesViewModel"
+            type="com.example.newsapp.ui.favourites.FavouritesViewModel" />
+    </data>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragment.FavouritesFragment">
+    tools:context=".ui.favourites.FavouritesFragment">
 
     <TextView
         android:id="@+id/tvFavourites"

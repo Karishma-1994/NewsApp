@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
 import com.example.newsapp.databinding.ItemsNewsBinding
 import com.example.newsapp.models.Article
+import com.example.newsapp.models.NewsResponse
+import com.example.newsapp.util.ViewResource
 import com.example.newsapp.util.loadNewsIcon
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
-    private val article: List<Article> = mutableListOf()
+    private var articles: List<Article> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val binding: ItemsNewsBinding =
@@ -25,37 +27,38 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return article.size
+        return articles.size
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-       holder.bind(article[position])
+        holder.bind(articles[position])
+    }
 
-
+    fun setNewsResponse(articles: List<Article>) {
+        this.articles = articles
+        notifyDataSetChanged()
     }
 
     class ArticleViewHolder(private val binding: ItemsNewsBinding) :
-        RecyclerView.ViewHolder(binding.root){
+        RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(article: Article) {
-        binding.newsData = article
-        binding.executePendingBindings()
-        binding.articleImage.loadNewsIcon(article.urlToImage)
-
-            }
-        }
-
-    }
-
-    class ArticleDiffCallback : DiffUtil.ItemCallback<Article>() {
-        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
-            return oldItem.url == newItem.url
-        }
-
-        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-            return oldItem == newItem
+        fun bind(article: Article) {
+            binding.newsData = article
+            binding.executePendingBindings()
+            binding.articleImage.loadNewsIcon(article.urlToImage)
         }
     }
+}
+
+class ArticleDiffCallback : DiffUtil.ItemCallback<Article>() {
+    override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+        return oldItem.url == newItem.url
+    }
+
+    override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+        return oldItem == newItem
+    }
+}
 
 
 

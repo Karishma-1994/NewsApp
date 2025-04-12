@@ -1,6 +1,7 @@
 [versions]
 agp = "8.6.1"
-kotlin = "1.9.22"
+kotlin = "1.9.24"
+ksp = "1.9.24-1.0.20"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -16,8 +17,7 @@ retrofit = "2.9.0"
 okhttp = "4.10.0"
 picasso = "2.71828"
 location = "21.3.0"
-roomCommon = "2.6.1"
-roomKtx = "2.6.1"
+room = "2.6.1"
 databindingRuntime = "8.9.1"
 
 
@@ -39,12 +39,13 @@ retrofit-gson-converter = { group = "com.squareup.retrofit2", name = "converter-
 http-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
 location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "location" }
-androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
-androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 androidx-databinding-runtime = { group = "androidx.databinding", name = "databinding-runtime", version.ref = "databindingRuntime" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-org-jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 

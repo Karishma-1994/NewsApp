@@ -5,34 +5,61 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.newsapp.databinding.FragmentHeadlinesBinding
 import com.example.newsapp.models.Article
 import com.example.newsapp.models.NewsResponse
 import com.example.newsapp.repository.NewsRepository
-import com.example.newsapp.util.ViewState
+import com.example.newsapp.util.ViewResource
 import kotlinx.coroutines.launch
+import okio.IOException
 import retrofit2.Response
 
-class NewsViewModel(app: Application, val newsRepository: NewsRepository) : AndroidViewModel(app) {
-    private val _headlines = MutableLiveData<ViewState<NewsResponse>>()
 
+class NewsViewModel(app: Application, private val newsRepository: NewsRepository) : AndroidViewModel(app) {
 
-    val headlines: LiveData<ViewState<NewsResponse>>
+    private val _headlines = MutableLiveData<ViewResource<NewsResponse>>()
+
+    val headlines: LiveData<ViewResource<NewsResponse>>
         get() = _headlines
-    var headlinesPage = 1
-    var headlinesResponse: NewsResponse? = null
 
+    private var headlinesPage = 1
+    private var headlinesResponse: NewsResponse? = null
 
-    private val _searchNews = MutableLiveData<ViewState<NewsResponse>>()
+    private val _searchNews = MutableLiveData<ViewResource<NewsResponse>>()
 
-    val searchNews: LiveData<ViewState<NewsResponse>>
+    val searchNews: LiveData<ViewResource<NewsResponse>>
         get() = _searchNews
-    var searchNewsPage = 1
-    var searchNewsResponse: NewsResponse? = null
-    var newSearchQuery: String? = null
-    var oldSearchQuery: String? = null
+    private var searchNewsPage = 1
+    private var searchNewsResponse: NewsResponse? = null
+    private var newSearchQuery: String? = null
+    private var oldSearchQuery: String? = null
 
+    lateinit var binding: FragmentHeadlinesBinding
 
-    private fun handleNewsResponse(response: Response<NewsResponse>): ViewState<NewsResponse> {
+    fun addToFavouritesArticle(article: Article) = viewModelScope.launch {
+        newsRepository.upsert(article)
+    }
+
+    fun getFavouritesNews() = newsRepository.getFavoriteNews()
+
+    fun deleteArticle(article: Article) = viewModelScope.launch {
+        newsRepository.clear(article)
+    }
+
+    private suspend fun fetchHeadlines(countryCode: String) {
+        _headlines.postValue(ViewResource.Loading())
+        try {
+            val response = newsRepository.getHeadlines(countryCode, headlinesPage)
+            _headlines.postValue(handleNewsResponse(response))
+        } catch (e: Exception) {
+            when (e) {
+                is IOException -> _headlines.postValue(ViewResource.Error("Network Failure"))
+                else -> _headlines.postValue(ViewResource.Error(e.message.orEmpty()))
+            }
+        }
+    }
+
+    private fun handleNewsResponse(response: Response<NewsResponse>): ViewResource<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 headlinesPage++
@@ -43,13 +70,26 @@ class NewsViewModel(app: Application, val newsRepository: NewsRepository) : Andr
                     val newArticles = resultResponse.articles
                     oldArticles?.addAll(newArticles)
                 }
-                return ViewState.success(headlinesResponse ?: resultResponse)
+                return ViewResource.Success(headlinesResponse ?: resultResponse)
             }
         }
-        return ViewState.Error(response.message())
+        return ViewResource.Error(response.message())
     }
 
-    private fun handleNewsSearch(response: Response<NewsResponse>): ViewState<NewsResponse> {
+    private suspend fun searchNews(searchQuery: String) {
+        _searchNews.postValue(ViewResource.Loading())
+        try {
+            val response = newsRepository.searchForNews(searchQuery, searchNewsPage)
+            _searchNews.postValue(handleNewsSearch(response))
+        } catch (e: Exception) {
+            when (e) {
+                is IOException -> _searchNews.postValue(ViewResource.Error("No Internet"))
+                else -> _searchNews.postValue(ViewResource.Error(e.message.orEmpty()))
+            }
+        }
+    }
+
+    private fun handleNewsSearch(response: Response<NewsResponse>): ViewResource<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 if (searchNewsResponse == null || newSearchQuery != oldSearchQuery) {
@@ -62,35 +102,9 @@ class NewsViewModel(app: Application, val newsRepository: NewsRepository) : Andr
                     val newArticles = resultResponse.articles
                     oldArticles?.addAll(newArticles)
                 }
-                return ViewState.success(searchNewsResponse ?: resultResponse)
+                return ViewResource.Success(searchNewsResponse ?: resultResponse)
             }
         }
-            return ViewState.Error(response.message())
+        return ViewResource.Error(response.message())
     }
-        fun addToFavouritesArticle(article: Article) = viewModelScope.launch {
-            newsRepository.upsert(article)
-        }
-
-        fun getFavouritesNews() = newsRepository.getFavoriteNews()
-
-        fun deleteArticle(article: Article) = viewModelScope.launch {
-            newsRepository.clear(article)
-        }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

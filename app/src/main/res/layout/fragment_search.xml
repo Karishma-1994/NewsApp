@@ -2,6 +2,12 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="searchViewModel"
+            type="com.example.newsapp.ui.search.SearchViewModel" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
 
     xmlns:tools="http://schemas.android.com/tools"
