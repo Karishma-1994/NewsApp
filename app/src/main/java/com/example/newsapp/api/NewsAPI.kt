@@ -17,12 +17,12 @@ interface NewsAPI {
         apiKey: String = API_KEY
     ): Response<NewsResponse>
 
-    @GET("")
+    @GET("v2/everything")
     suspend fun searchForNews(
         @Query("q")
         searchQuery: String,
         @Query("Page")
-        pageNunber: Int = 1,
+        pageNumber: Int = 1,
         @Query("apiKEY")
         apiKey: String = API_KEY
     ): Response<NewsResponse>

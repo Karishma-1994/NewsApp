@@ -51,24 +51,36 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
         binding.recyclerHeadlines.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerHeadlines.adapter = adapter
 
+
+        binding.itemHeadlinesError.retryButton.setOnClickListener {
+            viewModel.retry()
+        }
+
+        handleHeadlineResponse()
+
+        return binding.root
+    }
+
+    private fun handleHeadlineResponse() {
         viewModel.headlines.observe(viewLifecycleOwner) {
             it?.let { viewResource ->
                 when (viewResource) {
                     is ViewResource.Success -> {
                         adapter.setNewsResponse(it.data!!.articles)
                         binding.itemHeadlinesError.root.visibility = View.GONE
-                        binding.mainLayout.visibility = View.VISIBLE
+                        binding.mainLayoutHeadlines.visibility = View.VISIBLE
                         binding.paginationProgressBar.visibility = View.GONE
                     }
 
                     is ViewResource.Error -> {
                         binding.itemHeadlinesError.root.visibility = View.VISIBLE
-                        binding.mainLayout.visibility = View.GONE
+                        binding.mainLayoutHeadlines.visibility = View.GONE
                         binding.paginationProgressBar.visibility = View.GONE
                     }
+
                     is ViewResource.Loading -> {
                         binding.itemHeadlinesError.root.visibility = View.GONE
-                        binding.mainLayout.visibility = View.GONE
+                        binding.mainLayoutHeadlines.visibility = View.GONE
                         binding.paginationProgressBar.visibility = View.VISIBLE
 
 
@@ -76,14 +88,6 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
                 }
             }
         }
-        binding.itemHeadlinesError.retryButton.setOnClickListener {
-            viewModel.retry()
-        }
-
-
-
-
-        return binding.root
     }
 
 }

@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.newsapp.R
 
 
-class ArticleDetailsFragment : androidx.fragment.app.Fragment(R.layout.fragment_article) {
+class ArticleDetailsFragment : Fragment(R.layout.fragment_article) {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
