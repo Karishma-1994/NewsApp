@@ -102,6 +102,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
+
+
     fun hideKeyboard(view: View) {
         val inputMethodManager =
             view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
