@@ -66,5 +66,7 @@ class HeadlinesViewModel(private val newsRepository: NewsRepository) : ViewModel
     fun retry(){
         fetchHeadlines("US")
 
+
+
     }
 }

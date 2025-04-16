@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
 import com.example.newsapp.adapter.NewsAdapter
@@ -47,7 +48,7 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
         binding.lifecycleOwner = this
         binding.headlinesViewModel = viewModel
 
-        adapter = NewsAdapter()
+        adapter = NewsAdapter(getItemClickListener())
         binding.recyclerHeadlines.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerHeadlines.adapter = adapter
 
@@ -59,6 +60,16 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
         handleHeadlineResponse()
 
         return binding.root
+    }
+
+    private fun getItemClickListener(): NewsAdapter.OnItemClickListener {
+        return object : NewsAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                findNavController().navigate(
+                    HeadlinesFragmentDirections.actionHeadlinesFragmentToArticleFragment("URL")
+                )
+            }
+        }
     }
 
     private fun handleHeadlineResponse() {
