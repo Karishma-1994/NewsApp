@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
 import com.example.newsapp.adapter.NewsAdapter
 import com.example.newsapp.databinding.FragmentHeadlinesBinding
 import com.example.newsapp.db.ArticleDatabase
+import com.example.newsapp.models.Article
 import com.example.newsapp.repository.NewsRepository
 import com.example.newsapp.util.ViewResource
 
@@ -64,9 +67,9 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
 
     private fun getItemClickListener(): NewsAdapter.OnItemClickListener {
         return object : NewsAdapter.OnItemClickListener{
-            override fun onItemClick(position: Int) {
+            override fun onItemClick(article: Article) {
                 findNavController().navigate(
-                    HeadlinesFragmentDirections.actionHeadlinesFragmentToArticleFragment("URL")
+                    HeadlinesFragmentDirections.actionHeadlinesFragmentToArticleFragment(article)
                 )
             }
         }
@@ -100,5 +103,7 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
             }
         }
     }
+
+    
 
 }

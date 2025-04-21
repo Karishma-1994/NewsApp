@@ -7,9 +7,10 @@ import com.example.newsapp.repository.NewsRepository
 import kotlinx.coroutines.launch
 
 class FavouritesViewModel(private val newsRepository: NewsRepository) : ViewModel()  {
-    fun addToFavouritesArticle(article: Article) = viewModelScope.launch {
-        newsRepository.upsert(article)
-    }
+
+//    fun addToFavouritesArticle(article: Article) = viewModelScope.launch {
+//        newsRepository.upsert(article)
+//    }
 
     fun getFavouritesNews() = newsRepository.getFavoriteNews()
 

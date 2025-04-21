@@ -1,14 +1,16 @@
 package com.example.newsapp.ui.articleDetails
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.newsapp.models.Article
+import com.example.newsapp.repository.NewsRepository
+import kotlinx.coroutines.launch
 
-class ArticleDetailsViewModel {
+class ArticleDetailsViewModel (private val newsRepository: NewsRepository) : ViewModel() {
 
-    private val _article = MutableLiveData<Article>()
-    val article: LiveData<Article>
-        get() = _article
 
+    fun addToFavouritesArticle(article: Article) = viewModelScope.launch {
+        newsRepository.upsert(article)
+    }
 
 }
